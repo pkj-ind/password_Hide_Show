@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import SimpleReactValidator from 'simple-react-validator';
 import './App.css'
 
 export default class App extends Component {
@@ -13,6 +14,7 @@ export default class App extends Component {
     this.showHide = this.showHide.bind(this);
     this.handleChange=this.handleChange.bind(this)
     this.onSubmit=this.onSubmit.bind(this)
+    this.validator = new SimpleReactValidator();
     
   }
   
@@ -32,6 +34,18 @@ export default class App extends Component {
   onSubmit(e){
    e.preventDefault()
    console.log(this.state.userid,this.state.password)
+   
+   if (this.validator.allValid()) {
+    alert('You submitted the form and stuff!');
+  } else {
+    this.validator.showMessages();
+    // rerender to show messages for the first time
+    // you can use the autoForceUpdate option to do this automatically`
+    this.forceUpdate();
+  }
+   
+
+
   }  
   
   render(){
@@ -41,7 +55,8 @@ export default class App extends Component {
       <input type="text" className="userid__input" placeholder="Enter UserId"
       name="userid"
       value={this.state.userid}
-      onChange={this.handleChange}/>    
+      onChange={this.handleChange}/> 
+      {this.validator.message('userid', this.state.userid, 'required')}   
       </label>  
       <label className="password">Password
       <input type={this.state.type} className="password__input"
@@ -49,6 +64,7 @@ export default class App extends Component {
        name="password"
        value={this.state.password}
        onChange={this.handleChange}/>
+       {this.validator.message('password', this.state.password, 'required')}
       <span className="password__show" onClick={this.showHide}>{this.state.type === 'input' ? 'Hide' : 'Show'}</span>
       </label>
       <button className="btn">Login</button>
