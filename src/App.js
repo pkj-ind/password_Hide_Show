@@ -1,6 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component,Fragment } from 'react'
 import SimpleReactValidator from 'simple-react-validator';
-import './App.css'
+import './App.css';
+import axios from 'axios';
 
 export default class App extends Component {
   constructor(props){
@@ -8,7 +9,8 @@ export default class App extends Component {
     this.state = {
       userid:'',  
       type: 'password',
-      password:''
+      password:'',
+      persons:[]
      
     }
     this.showHide = this.showHide.bind(this);
@@ -43,13 +45,48 @@ export default class App extends Component {
     // you can use the autoForceUpdate option to do this automatically`
     this.forceUpdate();
   }
+
+  const user = {
+    name: this.state.userid,
+    "email":"Rey.Padberg@karina.biz"
+  };
+
+  axios.post(`https://jsonplaceholder.typicode.com/users`, { user })
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
+    })
    
-
-
   }  
+
+  // componentDidMount(){
+
+  //     axios.get(`https://jsonplaceholder.typicode.com/users`)
+  //     .then(res => {
+  //       const persons = res.data;
+  //      this.setState({ persons });
+  //     })
+  // }
+ 
+    componentDidMount = async () =>{
+
+      try {
+        const res = await axios.get(`https://jsonplaceholder.typicode.com/users`)
+        console.log(res.status)
+        console.log(res.data)
+        const persons = res.data;
+        this.setState({ persons })
+      } catch (error) {
+        
+      }
+    
+   
+  }
   
   render(){
     return(
+      <Fragment>
+        <h1>Please Login to your account.</h1>
       <form className="App-form" onSubmit={this.onSubmit}>
       <label className="password">UserId
       <input type="text" className="userid__input" 
@@ -70,6 +107,13 @@ export default class App extends Component {
       <br/>
       <button className="btn btn-primary btn-lg btn-block">Login</button>
       </form>
+      <div>
+        <p>Below are the fetched user</p>
+        <ul>
+        { this.state.persons.map(person => <li key={person.id}>{person.name}</li>)}
+      </ul>
+      </div>
+      </Fragment>
     )
   }
 }
