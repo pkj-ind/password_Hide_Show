@@ -50,24 +50,25 @@ export default class App extends Component {
   
   render(){
     return(
-      <form className="App-header" onSubmit={this.onSubmit}>
+      <form className="App-form" onSubmit={this.onSubmit}>
       <label className="password">UserId
-      <input type="text" className="userid__input" placeholder="Enter UserId"
+      <input type="text" className="userid__input" 
       name="userid"
       value={this.state.userid}
       onChange={this.handleChange}/> 
       {this.validator.message('userid', this.state.userid, 'required')}   
-      </label>  
+      </label> 
+      <br /> 
       <label className="password">Password
       <input type={this.state.type} className="password__input"
-       placeholder="password"
        name="password"
        value={this.state.password}
        onChange={this.handleChange}/>
        {this.validator.message('password', this.state.password, 'required')}
       <span className="password__show" onClick={this.showHide}>{this.state.type === 'input' ? 'Hide' : 'Show'}</span>
       </label>
-      <button className="btn">Login</button>
+      <br/>
+      <button className="btn btn-primary btn-lg btn-block">Login</button>
       </form>
     )
   }

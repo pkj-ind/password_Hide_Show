@@ -19,9 +19,10 @@ form {
   display: block;
   position: relative;
   text-transform: uppercase;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 400;
   width: 100%;
-  color: #727272;
+  color: #bbbbbb;
 }
 .password__input {
   display: block;
@@ -56,16 +57,18 @@ form {
   bottom: 11px;
   height: 16px;
   right: 0;
-  background: #727272;
-  color: white;
-  padding: 4px 8px;
+  background: #ffffff;
+  color: black;
+  padding: 4px 4px;
   border-radius: 4px;
   font-weight: 700;
   font-size: .8em;
 }
-.App-header {
+.App-form {
+  padding: 15px;
   background-color: #282c34;
   align-items: right;
   justify-content: center;
   color: rgb(255, 255, 255);
 }
+
